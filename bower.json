@@ -1,0 +1,21 @@
+{
+  "name": "react-current-games",
+  "version": "0.0.0",
+  "authors": [
+    "Andy Ernst <AndyCErnst@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.4",
+    "react": "~0.14.3",
+    "react-dom": "~0.1.0"
+  }
+}
