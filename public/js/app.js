@@ -49,7 +49,7 @@ var ListDisplay = React.createClass({
   }
 });
 
-React.render(
+ReactDOM.render(
   <ListDisplay />,
   document.getElementById('app-content')
 );
