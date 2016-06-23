@@ -1,55 +1,38 @@
 'use strict';
 var React = require('react'),
-  ReactDOM = require('react-dom');
+  ReactDOM = require('react-dom'),
+  $ = require('jquery');
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var Link = require('react-router').Link;
 
-// app-content
-var GameList = React.createClass({
-  getInitialState: function(){
-      return null;
-  },
-  render: function(){
-    var games = this.props.games.map(function(game, index){
-      var mins = game.durationMins % 60;
-      var timeDisplay = Math.floor((game.durationMins - mins)/60) + ' hours ';
-      timeDisplay += mins ? mins + ' mins' : '';
-      var playersDisplay = game.currentPlayers >= game.maxPlayers ?
-        'Game Full' :
-        game.currentPlayers + ' of ' + game.maxPlayers;
-      return (
-        <div className="game-view" key="{index}">
-          <h2>{game.title}</h2>
-          <p>
-            <b>Duration: </b>
-            <span>{timeDisplay}</span>
-          </p>
-          <p>
-            <b>Players: </b>
-            <span>{playersDisplay}</span>
-          </p>
-        </div>
-        );
-    });
-    return (
-      <div>
-        {games}
-      </div>
-      );
-  }
-});
+'use strict';
+var React = require('react'),
+  ReactDOM = require('react-dom'),
+  $ = require('jquery'),
+  GameListView = require('./views/gameListView');
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var Link = require('react-router').Link;
+var hashHistory = require('react-router').hashHistory;
 
-var ListDisplay = React.createClass({
-  render: function(){
-    var games=[{durationMins: 73, title: "title me", currentPlayers: 3, maxPlayers:5}];
-    return (
-      <div>
-        <h1>What We're Playing</h1>
-        <GameList games={games}/>
-      </div>
-      );
-  }
-});
 
-ReactDOM.render(
-  <ListDisplay />,
-  document.getElementById('app-content')
+ReactDOM.render((
+  <Router history={hashHistory}>
+    <Route path="/" component={GameListView}/>
+
+  </Router>
+  ), document.getElementById('app-content')
 );
+    // <Route path="/game/:name" component={Game}/>
+    // <Route path="/editgame/:name" component={GameEdit}/>
+
+
+
+function renderList (data) {
+  // ReactDOM.render(
+  //   <GameListView games={data}/>,
+  //   document.getElementById('app-content')
+  // );
+}
+// renderList();

@@ -3,12 +3,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    "jshint-jsx": {
-      // files: ['Gruntfile.js','public/js/**/*.js'],
-      options: {
-        // jshintrc: true
-      }
-    },
     less: {
       all:{
         files: {
@@ -33,7 +27,7 @@ module.exports = function(grunt) {
     },
     browserify: {
       all: {
-        src: ['./public/js/**/*.js'],
+        src: ['./public/js/**/*.jsx','./public/js/**/*.js'],
         dest: 'dist/static/app.js'
       },
       options: {
@@ -44,7 +38,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: ['public/js/**/*.js'],
-        tasks: ['jshint-jsx', 'browserify']
+        tasks: ['browserify']
       },
       server: {
         files: ['server/**/*.js'],
@@ -78,6 +72,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', ['clean','copy','less', 'browserify', 'express:dev','watch']);
-  grunt.registerTask('default', ['jshint-jsx', 'build']);
+  grunt.registerTask('default', ['build']);
 
 };

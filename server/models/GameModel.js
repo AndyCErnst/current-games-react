@@ -26,7 +26,7 @@ Game.find({}).exec(function(err,collection) {
       {
         title: 'Test Game2',
         description: 'Description2 is here lorum ipsem2',
-        durationMins: 360,
+        durationMins: 375,
         numPlayers: 3,
         start: new Date()
       });
