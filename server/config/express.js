@@ -11,7 +11,7 @@ module.exports = function(app, config){
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-  app.use(session({secret: 'Rainbow Dash is best pony',resave:false,saveUninitialized:false}));
+  app.use(session({secret: process.env.secret,resave:false,saveUninitialized:false}));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(errorHandler({ dumpExceptions: true, showStack: true }));
