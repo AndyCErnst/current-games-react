@@ -3,6 +3,7 @@ var React = require('react'),
   $ = require('jquery'),
   NavLinks = require('./NavLinks');
 
+var browserHistory = require('react-router').browserHistory;
 
 var GameListItem = React.createClass({
   getDisplayTime: function(displayMins){
@@ -33,6 +34,7 @@ var GameListItem = React.createClass({
   },
   handleGameClicked: function() {
     this.props.gameClicked(this.props.game);
+    browserHistory.push('/game/' + this.props.game._id);
   },
   render: function(){
     var game = this.props.game;
