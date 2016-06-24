@@ -1,7 +1,8 @@
 'use strict';
 var React = require('react'),
-  ReactDOM = require('react-dom'),
-  $ = require('jquery');
+  $ = require('jquery'),
+  NavLinks = require('./NavLinks');
+
 
 var GameListItem = React.createClass({
   getDisplayTime: function(displayMins){
@@ -85,5 +86,6 @@ var ListDisplay = React.createClass({
       );
   }
 });
+        // <NavLinks />
 
 module.exports = ListDisplay;
