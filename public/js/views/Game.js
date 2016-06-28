@@ -43,17 +43,14 @@ var Game = React.createClass({
           <b>Description:</b>
           <span className="description">{game.description}</span>
         </p>
-        <p>
-          <b>Duration:</b>
-          <DurationDisplay durationMins={game.durationMins}/>
-        </p>
-        <p>
-          <b>Players:</b>
-          <PlayerDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
-        </p>
-        <button className="edit-button hidden1 btn btn-danger">Edit</button>
+        <DurationDisplay durationMins={game.durationMins}/>
+        <PlayerDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
+        <button className="edit-button hidden1 btn btn-warning">Edit</button>
+        <button className="delete-button hidden1 btn btn-danger">Delete</button>
       </div>
       )
+    //        <button className="edit-button hidden1 btn btn-success">Save</button>
+
   }
 });
 module.exports = Game;

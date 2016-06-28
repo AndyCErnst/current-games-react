@@ -17,7 +17,11 @@ var PlayerDisplay = React.createClass({
     return playersDisplay;
   },
   render: function() {
-    return <span>{this.getPlayerDisplay(this.props.currentPlayers, this.props.maxPlayers)}</span>
+    return (
+      <p>
+        <b>Players: </b><span>{this.getPlayerDisplay(this.props.currentPlayers, this.props.maxPlayers)}</span>
+      </p>
+      );
   }
 })
 module.exports = PlayerDisplay;

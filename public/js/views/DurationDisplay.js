@@ -15,7 +15,11 @@ var DurationDisplay = React.createClass({
     return timeDisplay;
   },
   render: function() {
-    return <span>{this.getDisplayTime(this.props.durationMins)}</span>
+    return (
+      <p>
+        <b>Duration: </b><span>{this.getDisplayTime(this.props.durationMins)}</span>
+      </p>
+     );
   }
 })
 module.exports = DurationDisplay;

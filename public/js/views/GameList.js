@@ -16,14 +16,8 @@ var GameListItem = React.createClass({
     return (
       <div className="game-view" onClick={this.handleGameClicked}>
         <h2>{game.title}</h2>
-        <p>
-          <b>Duration: </b>
-          <DurationDisplay durationMins={game.durationMins}/>
-        </p>
-        <p>
-          <b>Players: </b>
-          <DurationDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
-        </p>
+        <DurationDisplay durationMins={game.durationMins}/>
+        <DurationDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
       </div>
       );
   }
