@@ -1,8 +1,9 @@
 'use strict';
 var React = require('react'),
-  $ = require('jquery'),
-  NavLinks = require('./NavLinks').
-  DurationDisplay = require('./DurationDisplay');
+  api = require('../api'),
+  NavLinks = require('./NavLinks'),
+  DurationDisplay = require('./DurationDisplay'),
+  PlayerDisplay = require('./PlayerDisplay');
 
 var browserHistory = require('react-router').browserHistory;
 
@@ -17,7 +18,7 @@ var GameListItem = React.createClass({
       <div className="game-view" onClick={this.handleGameClicked}>
         <h2>{game.title}</h2>
         <DurationDisplay durationMins={game.durationMins}/>
-        <DurationDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
+        <PlayerDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
       </div>
       );
   }
@@ -39,10 +40,13 @@ var ListDisplay = React.createClass({
   },
   componentWillMount: function() {
     var self = this;
-    $.get('/api/games', function (data) {
-      console.log('data received from server');
-      self.setState({games:data});
-    });
+    if(!this.state.games) {
+      api.getGames()
+        .done(function (data) {
+        console.log('data received from server');
+        self.setState({games:data});
+      });
+    }
   },
   gameClicked: function(game) {
     console.log(game);
@@ -57,6 +61,5 @@ var ListDisplay = React.createClass({
       );
   }
 });
-        // <NavLinks />
 
 module.exports = ListDisplay;
