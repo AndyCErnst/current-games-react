@@ -1,37 +1,12 @@
 'use strict';
 var React = require('react'),
   $ = require('jquery'),
-  NavLinks = require('./NavLinks');
+  NavLinks = require('./NavLinks').
+  DurationDisplay = require('./DurationDisplay');
 
 var browserHistory = require('react-router').browserHistory;
 
 var GameListItem = React.createClass({
-  getDisplayTime: function(displayMins){
-    var timeDisplay = '',
-        mins = displayMins % 60,
-        hours = Math.floor(displayMins - mins)/60;
-    if(hours) {
-      timeDisplay += hours + ' hours ';
-    }
-    if(mins) {
-      timeDisplay +=  mins + ' mins';
-    }
-    return timeDisplay;
-  },
-  getPlayerDisplay: function(currPlayers, maxPlayers) {
-    var playersDisplay = '';
-    if(currPlayers === undefined) {
-      return 'unknown';
-    }
-    if(maxPlayers && currPlayers >= maxPlayers) {
-      playersDisplay = 'Game Full';
-    } else if (!maxPlayers) {
-      playersDisplay = currPlayers;
-    } else {
-      playersDisplay = currPlayers + ' of ' + maxPlayers;
-    }
-    return playersDisplay;
-  },
   handleGameClicked: function() {
     this.props.gameClicked(this.props.game);
     browserHistory.push('/game/' + this.props.game._id);
@@ -43,11 +18,11 @@ var GameListItem = React.createClass({
         <h2>{game.title}</h2>
         <p>
           <b>Duration: </b>
-          <span>{this.getDisplayTime(game.durationMins)}</span>
+          <DurationDisplay durationMins={game.durationMins}/>
         </p>
         <p>
           <b>Players: </b>
-          <span>{this.getPlayerDisplay(game.currentPlayers, game.maxPlayers)}</span>
+          <DurationDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
         </p>
       </div>
       );
@@ -66,7 +41,7 @@ var GameList = React.createClass({
 
 var ListDisplay = React.createClass({
   getInitialState: function(){
-      return {};
+    return {};
   },
   componentWillMount: function() {
     var self = this;

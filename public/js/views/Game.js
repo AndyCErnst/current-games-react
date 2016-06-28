@@ -1,7 +1,9 @@
 'use strict';
 var React = require('react'),
   $ = require('jquery'),
-  FourOFour = require('./404');
+  FourOFour = require('./404'),
+  DurationDisplay = require('./DurationDisplay'),
+  PlayerDisplay = require('./PlayerDisplay');
 
 var browserHistory = require('react-router').browserHistory;
 
@@ -43,12 +45,11 @@ var Game = React.createClass({
         </p>
         <p>
           <b>Duration:</b>
-          <span>{game.duration}
-          </span>
+          <DurationDisplay durationMins={game.durationMins}/>
         </p>
         <p>
           <b>Players:</b>
-          <span>{game.currentPlayers}</span>
+          <PlayerDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
         </p>
         <button className="edit-button hidden1 btn btn-danger">Edit</button>
       </div>
