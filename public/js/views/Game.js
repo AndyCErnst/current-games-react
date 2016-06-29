@@ -28,6 +28,9 @@ var Game = React.createClass({
   returnHome: function() {
     browserHistory.push('/');
   },
+  editGameClicked: function() {
+    browserHistory.push('/game/' + this.state.game._id + '/edit')
+  },
   deleteGameClicked: function() {
     if(window.confirm('Delete this game?')) {
       this.returnHome();
@@ -58,11 +61,10 @@ var Game = React.createClass({
         </p>
         <DurationDisplay durationMins={game.durationMins}/>
         <PlayerDisplay currentPlayers={game.currentPlayers} maxPlayers={game.maxPlayers}/>
-        <button className="edit-button hidden1 btn btn-warning">Edit</button>
-        <button onClick={this.deleteGameClicked} className="delete-button hidden1 btn btn-danger">Delete</button>
+        <button onClick={this.editGameClicked} className="edit-button btn btn-warning">Edit</button>
+        <button onClick={this.deleteGameClicked} className="delete-button btn btn-danger">Delete</button>
       </div>
       )
-    //        <button className="edit-button hidden1 btn btn-success">Save</button>
 
   }
 });

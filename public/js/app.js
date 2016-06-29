@@ -12,6 +12,7 @@ var React = require('react'),
   ReactDOM = require('react-dom'),
   $ = require('jquery'),
   GameList = require('./views/GameList'),
+  GameEdit = require('./views/GameEdit'),
   Game = require('./views/Game'),
   NavLinks = require('./views/NavLinks'),
   About = require('./views/About');
@@ -37,12 +38,10 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Wrapper}>
       <IndexRoute component={GameList}/>
-      <Route path="/game/:id" component={Game}>
-        <Route path="/game/:id/edit" component={Game}/>
-      </Route>
+      <Route path="/game/:id" component={Game}/>
+      <Route path="/game/:id/edit" component={GameEdit}/>
       <Route path="/about" component={About}/>
     </Route>
   </Router>
   ), document.getElementById('app-content')
 );
-    // <Route path="/editgame/:name" component={GameEdit}/>

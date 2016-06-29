@@ -11,8 +11,8 @@ module.exports = function(grunt) {
         }
       },
       options: {
-        strictImport: true,
-        sourceMap: true
+        strictImport: true//,
+        // sourceMap: true
       }
     },
     clean: ['/dist'],
