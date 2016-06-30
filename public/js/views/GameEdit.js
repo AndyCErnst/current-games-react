@@ -7,14 +7,14 @@ var browserHistory = require('react-router').browserHistory;
 
 var EditGame = React.createClass({
   getInitialState: function() {
-    return {};
+    window.edit = this;
+    return {hasChanged: false};
   },
   componentWillMount: function() {
     var self = this;
     if(!this.state.game) {
       api.getGame(this.props.params.id)
         .done(function (data) {
-          console.log('data received from server');
           self.setState({game:data});
         })
         .fail(function(err){
@@ -23,29 +23,56 @@ var EditGame = React.createClass({
         });
     }
   },
-  editFormChanged: function() {
-    console.log('form changed');
+  editFormChanged: function(e) {
+    var input = e.target;
+    var fieldName = input.attributes.name.value;
+    if (e.isDefaultPrevented()) {
+      return;
+    }
+    e.preventDefault();
+    // var type = input.attributes.type;
+    //value = type === 'number' || type === 'range' ? parseInt(input.value) : input.value;
+    this.updateStateFromForm(fieldName, input.value);
   },
-  editFormSubmitted: function() {
-    debugger;
-    if(false) { // data has changed
-      api.saveGame(id, game)
+  updateStateFromForm: function(fieldName, value) {
+    var newState = this.state;
+    newState.hasChanged = true;
+    newState.game[fieldName] = value;
+    this.setState(newState);
+  },
+  incrementer: function(e) {
+    e.preventDefault();
+    var input = e.target;
+    var fieldName = input.attributes.name.value;
+    var value = this.state.game[fieldName] + 1;
+    this.updateStateFromForm(fieldName, parseInt(value, 10));
+  },
+  decrementer: function(e){
+    e.preventDefault();
+    var input = e.target;
+    var fieldName = input.attributes.name.value;
+    var value = this.state.game[fieldName] - 1;
+    this.updateStateFromForm(fieldName, parseInt(value, 10));
+  },
+  editFormSubmitted: function(e) {
+    e.preventDefault();
+    var self = this;
+    if(this.state.hasChanged) { // data has changed
+      var game = this.state.game;
+      api.saveGame(game._id, game)
         .done(function(){
-
+          self.returnToGameView();
         })
         .fail(function(){
-
+          // display error
         });
+    } else {
+      this.returnToGameView();
     }
   },
-  inputChanged: function(name){
-    var self = this;
-    return function(event){
-      console.log('change ' + name + ' to ' + event.target.value);
-      var newState = {game:{}};
-      newState.game[name] = event.target.value;
-      self.setState(newState);
-    };
+  returnToGameView: function(e) {
+    if(e && e.preventDefault) {e.preventDefault();}
+    browserHistory.push('/game/' + this.state.game._id);
   },
   render: function() {
     var game = this.state.game;
@@ -56,26 +83,33 @@ var EditGame = React.createClass({
       return null;
     }
     return (
-      <form method="PUT" onSubmit={this.editFormSubmitted}>
+      <form method="PUT" onSubmit={this.editFormSubmitted} onChange={this.editFormChanged}>
         <label>
           title<br/>
-          <input onChange={this.inputChanged('title')} defaultValue={game.title}/>
+          <input name="title" defaultValue={game.title}/>
         </label><br/>
         <label>
           description<br/>
-          <textarea onChange={this.inputChanged('description')} defaultValue={game.description}/>
+          <textarea name="description" defaultValue={game.description} cols="50" rows="5"/>
         </label><br/>
         <label>
-          duration<br/>
-          <input onChange={this.inputChanged('durationMins')} type="range" defaultValue={game.durationMins}/>
-          <span>{game.durationMins}</span>
+          duration <span>{game.durationMins} minutes</span><br/>
+          <input name="durationMins" type="range" max="360" defaultValue={game.durationMins}/>
+        </label><br/>
+         <label>
+          current players<br/>
+          <input name="currentPlayers" type="number" defaultValue={game.currentPlayers}/>
+          <button className="circle-button btn btn-success" onClick={this.incrementer}>+</button>
+          <button className="circle-button btn btn-success" onClick={this.decrementer}>-</button>
         </label><br/>
         <label>
           max players<br/>
-          <input onChange={this.inputChanged('maxPlayers')} type="number" defaultValue={game.maxPlayers}/>
+          <input name="maxPlayers" type="number" defaultValue={game.maxPlayers}/>
+          <button name="maxPlayers" className="circle-button btn btn-success" onClick={this.incrementer}>+</button>
+          <button name="maxPlayers" className="circle-button btn btn-success" onClick={this.decrementer}>-</button>
         </label><br/>
         <button type="submit" className="save-changes-button btn btn-success">Save Changes</button>
-        <button className="cancel-button btn btn-default">Cancel</button>
+        <button onClick={this.returnToGameView} className="cancel-button btn btn-default">Cancel</button>
       </form>
       );
   }

@@ -16,7 +16,7 @@ module.exports = function(app, config) {
     console.log('get req.body is');
     console.log(req.body);
     Game.findOne({'_id':req.params.id}, function(err, game) {
-      if (err) return res.send(500, err.message);
+      if (err) return res.status(500).send(err.message);
       res.send(game);
     })
   });
