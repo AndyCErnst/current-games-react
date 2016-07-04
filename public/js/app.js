@@ -15,7 +15,8 @@ var React = require('react'),
   GameEdit = require('./views/GameEdit'),
   Game = require('./views/Game'),
   NavLinks = require('./views/NavLinks'),
-  About = require('./views/About');
+  About = require('./views/About'),
+  FourOFour = require('./views/404');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -41,6 +42,7 @@ ReactDOM.render((
       <Route path="/game/:id" component={Game}/>
       <Route path="/game/:id/edit" component={GameEdit}/>
       <Route path="/about" component={About}/>
+      <Route path="*" component={FourOFour}/>
     </Route>
   </Router>
   ), document.getElementById('app-content')

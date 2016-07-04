@@ -42,8 +42,7 @@ var ListDisplay = React.createClass({
     var self = this;
     if(!this.state.games) {
       api.getGames()
-        .done(function (data) {
-        console.log('data received from server');
+      .done(function (data) {
         self.setState({games:data});
       });
     }
